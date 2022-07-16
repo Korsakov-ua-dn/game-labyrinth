@@ -72,8 +72,8 @@ const StyledTable = styled.main`
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 20px;
-        max-width: 640px;
-        margin: 50px auto;
+        max-width: calc(500 * 100vh / 868);
+        margin: 30px auto;
 
         &.disable {
             pointer-events: none;

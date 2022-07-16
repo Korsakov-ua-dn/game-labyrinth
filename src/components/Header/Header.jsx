@@ -17,6 +17,11 @@ const StyledHeader = styled.header`
         display: grid;
         grid-template-columns: 1fr 300px 1fr;
         align-items: center;
+        margin-top: 24px;
+
+        @media (max-width: 767px) {
+            margin-top: 15px;
+          }
     }
 
     & .header__line {
@@ -26,7 +31,7 @@ const StyledHeader = styled.header`
     }
 
     & .header__title {
-        height: 35px;
+        height: 30px;
         display: flex;
         align-items: center;
         justify-content: center;

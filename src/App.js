@@ -25,21 +25,20 @@ export default App;
 
 const StyledApp = styled.div`
   &.App {
-    padding: 24px;
+    padding: 0 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
     @media (max-width: 767px) {
-      padding: 15px;
+      padding: 0 15px;
     }
   }
 
   & .container {
     max-width: 1024px;
     width: 100%;
-    min-height: 100vh;
   }
 
 
