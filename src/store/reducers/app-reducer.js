@@ -5,7 +5,7 @@ import { setCorrectAnswer, setMoves, setStartNumber } from "./game-reducer";
 
 const initialState = {
     isOpenStart: true,
-    aspectRatio: 4,
+    aspectRatio: 3,
     listOfAllowedMoves: {},
     disable: true,
   };
@@ -15,6 +15,7 @@ export const appReducer = (state = initialState, action) => {
       case "APP/SET_OPEN-START":
       case "APP/SET_LIST-OF-ALLOW-MOVES":
       case "APP/SET_DISABLE":
+      case "APP/SET_ASPECT-RATIO":
         return { ...state, ...action.payload };
   
       default:
@@ -36,6 +37,11 @@ export const setListOfAllowedMoves = (listOfAllowedMoves) => ({
 export const setDisable = (disable) => ({
     type: "APP/SET_DISABLE",
     payload: { disable },
+  });
+
+export const setAspectRatio = (aspectRatio) => ({
+    type: "APP/SET_ASPECT-RATIO",
+    payload: { aspectRatio },
   });
 
   

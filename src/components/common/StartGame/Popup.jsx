@@ -2,20 +2,44 @@ import Portal from './Portal';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { pressStartTC } from '../../../store/reducers/app-reducer';
+import { pressStartTC, setAspectRatio } from '../../../store/reducers/app-reducer';
 import { variables } from "../../../utils/variables";
 
 const Popup = () => {
     const dispatch = useDispatch();
     const isOpenStart = useSelector(s => s.app.isOpenStart);
+    const aspectRatio = useSelector(s => s.app.aspectRatio);
 
     if (!isOpenStart) return;
+
+    const fieldSelectionHandler = (e) => {
+        if (e.target.tagName === "INPUT") {
+            dispatch(setAspectRatio(+e.target.value))
+        }
+    }
+
+    console.log("aspectRatio ", aspectRatio);
 
     return (
         <Portal>
             <StyledPopup className='popup'>
                 <div className='popup__background'/>
                 <div className='popup__wrapper'>
+                    <i>Двигайся в лабиринте по стрелкам. Количество ходов - 10</i>
+                    <div className='playground-size-list'>
+                        <div onClick={fieldSelectionHandler} className='playground-size-list__item'>
+                            <input defaultChecked={aspectRatio === 3} id="3" type="radio" value="3" name="playground-size"/>
+                            <label htmlFor="date">Поле 3 х 3</label>
+                        </div>
+                        <div onClick={fieldSelectionHandler} className='playground-size-list__item'>
+                            <input defaultChecked={aspectRatio === 4} id="4" type="radio" value="4" name="playground-size"/>
+                            <label htmlFor="name">Поле 4 х 4</label>
+                        </div>
+                        <div onClick={fieldSelectionHandler} className='playground-size-list__item'>
+                            <input defaultChecked={aspectRatio === 5} id="5" type="radio" value="5" name="playground-size"/>
+                            <label htmlFor="amount">Поле 5 х 5</label>
+                        </div>
+                    </div>
                     <button onClick={() => dispatch(pressStartTC())} className='popup__btn'>СТАРТ</button>
                 </div>
             </StyledPopup>
@@ -53,16 +77,47 @@ const StyledPopup = styled.div`
     z-index: 99;
     max-width: 330px;
     width: 100%;
-    background-color: ${variables.backgroundLightColor};
-    border-radius: 20px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-radius: 4px;
+}
+
+& .playground-size-list {
+    margin: 20px 0;
+}
+
+& .playground-size-list__item {
+    display: flex;
+
+    &:not(:last-child) {
+        margin-bottom: 10px;
+    }
+
+    & input {
+        width: 20px;
+        height: 20px;
+    }
+
+    & label {
+        margin-left: 10px;
+    }
 }
 
 & .popup__btn {
-    width: 100%;
-    color: ${variables.blueColor};
-    padding: 20px 0;
+    margin: 0 auto;
+    padding: 10px;
+    width: 100px;
+    background-color: ${variables.blueColor};
+    color: #ffffff;
+    border-radius: 4px;
     font-size: 18px;
     letter-spacing: 4px;
     font-weight: 700;
+
+    &:hover {
+        background-color: #0066df;
+    }
 }
 `
