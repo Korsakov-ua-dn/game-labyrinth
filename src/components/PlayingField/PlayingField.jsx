@@ -1,5 +1,8 @@
 import React  from "react";
 import styled from 'styled-components';
+import startImage from "../../assets/img/start_img.webp"
+import winImage from "../../assets/img/win.png"
+import loseImage from "../../assets/img/lose.png"
 import { variables } from "../../utils/variables";
 import { useDispatch, useSelector } from "react-redux";
 import { showCorrectAnswerTC } from "../../store/reducers/game-reducer";
@@ -48,7 +51,10 @@ const PlayingField = () => {
 
     return (
         <>
-            <StyledTable onClick={clickCeilHandler} className={`${disable ? 'disable' : ''} table`}>
+            <StyledTable 
+                aspectRatio={aspectRatio} 
+                onClick={clickCeilHandler} 
+                className={`${disable ? 'disable' : ''} table`}>
             
                { getCeil() }
                 
@@ -70,7 +76,7 @@ const Ceil = ({ i, start, win }) => {
 const StyledTable = styled.main`
     &.table {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(${props => props.aspectRatio}, 1fr);
         gap: 20px;
         max-width: calc(500 * 100vh / 868);
         margin: 30px auto;
@@ -86,21 +92,21 @@ const StyledTable = styled.main`
         background-color: ${variables.backgroundColor};
 
         &.start {
-            background-image: url("/start_img.webp");
+            background-image: url(${startImage});
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
         }
 
         &.win {
-            background-image: url("/win.png");
+            background-image: url(${winImage});
             background-size: 80%;
             background-position: center;
             background-repeat: no-repeat;
         }
 
         &.lose {
-            background-image: url("/lose.png");
+            background-image: url(${loseImage});
             background-size: 80%;
             background-position: center;
             background-repeat: no-repeat;

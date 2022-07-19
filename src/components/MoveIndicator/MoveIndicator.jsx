@@ -1,5 +1,6 @@
 import React, { useEffect, useState }  from "react";
 import styled from 'styled-components';
+import arrowRightImage from "../../assets/img/right.png"
 import { variables } from "../../utils/variables";
 import { useDispatch, useSelector } from "react-redux";
 import { setDisable } from "../../store/reducers/app-reducer";
@@ -9,6 +10,7 @@ const MoveIndicator = () => {
     const disable = useSelector(s => s.app.disable);
     const startNumber = useSelector(s => s.game.startNumber);
     const setOfMoves = useSelector(s => s.game.setOfMoves);
+    const aspectRatio = useSelector(s => s.app.aspectRatio);
 
 // показываем стрелку направления движения каждую секунду
     const [show, setShow] = useState(-2);
@@ -42,7 +44,7 @@ const MoveIndicator = () => {
 
     return (
         <>
-            <StyledMoves className="moves">
+            <StyledMoves aspectRatio={aspectRatio} className="moves">
             
                { getMoves() }
                 
@@ -66,16 +68,16 @@ const StyledMoves = styled.div`
         position: relative;
         padding-bottom: 100%;
         width: 100%;
-        background-color: ${variables.backgroundColor};
+        background-color: ${variables.backgroundBlueColor};
        
 
         &[data-arrow="-1"]::after {
             transform: rotate(180deg);
         }
-        &[data-arrow="3"]::after {
+        &[data-arrow="${props => props.aspectRatio}"]::after {
             transform: rotate(90deg);
         }
-        &[data-arrow="-3"]::after {
+        &[data-arrow="${props => -props.aspectRatio}"]::after {
             transform: rotate(-90deg);
         }
 
@@ -91,7 +93,7 @@ const StyledMoves = styled.div`
     & .moves__ceil::after {
         position: absolute;
         content: '';
-        background-image: url("/right.png");
+        background-image: url(${arrowRightImage});
         background-size: 60%;
         background-position: center;
         background-repeat: no-repeat;

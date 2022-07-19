@@ -5,7 +5,7 @@ import { setCorrectAnswer, setMoves, setStartNumber } from "./game-reducer";
 
 const initialState = {
     isOpenStart: true,
-    aspectRatio: 3,
+    aspectRatio: 4,
     listOfAllowedMoves: {},
     disable: true,
   };
@@ -46,7 +46,7 @@ export const pressStartTC = () => (dispatch, getState) => {
   // генерируем и добавляем в стейт стартвое значение
   const startNumber = getRandomInt(1, Math.pow(aspectRatio, 2));
   dispatch(setStartNumber(startNumber));
-  // console.log("startNumber: ", startNumber);
+  console.log("startNumber: ", startNumber);
 
   // закрываем модалку
   dispatch(setOpenStart(false));
@@ -65,7 +65,7 @@ export const addListOfAllowedMovesTC = () => (dispatch, getState) => {
   // генерируем список допустимых шагов для всех ячеек
   const list = getListOfAllowMoves(aspectRatio);
   dispatch(setListOfAllowedMoves(list));
-  // console.log("list: ", list);
+  console.log("listOfAllowedMoves: ", list);
 
 };
 
@@ -83,8 +83,9 @@ export const addListOfStepsTC = () => (dispatch, getState) => {
   }
 
   dispatch(setMoves(temp));
+  // правильный ответ = последняя ячейча в массиве шагов
   dispatch(setCorrectAnswer(temp[9]));
-  // console.log("temp: ", temp);
+  console.log("setOfMoves: ", temp);
 
 };
 
