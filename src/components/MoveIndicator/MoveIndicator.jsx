@@ -1,6 +1,6 @@
 import React, { useEffect, useState }  from "react";
 import styled from 'styled-components';
-import arrowRightImage from "../../assets/img/right.png"
+import arrowRightImage from "../../assets/img/right-min.webp"
 import { variables } from "../../utils/variables";
 import { useDispatch, useSelector } from "react-redux";
 import { setDisable } from "../../store/reducers/app-reducer";

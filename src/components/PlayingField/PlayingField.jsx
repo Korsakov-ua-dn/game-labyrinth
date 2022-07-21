@@ -1,8 +1,8 @@
 import React  from "react";
 import styled from 'styled-components';
 import startImage from "../../assets/img/start_img.webp"
-import winImage from "../../assets/img/win.png"
-import loseImage from "../../assets/img/lose.png"
+import winImage from "../../assets/img/win-min.webp"
+import loseImage from "../../assets/img/lose-min.webp"
 import { variables } from "../../utils/variables";
 import { useDispatch, useSelector } from "react-redux";
 import { showCorrectAnswerTC } from "../../store/reducers/game-reducer";
