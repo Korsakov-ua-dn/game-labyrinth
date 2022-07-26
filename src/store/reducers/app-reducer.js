@@ -79,10 +79,11 @@ export const addListOfStepsTC = () => (dispatch, getState) => {
   const listOfAllowedMoves = getState().app.listOfAllowedMoves;
   const startNumber = getState().game.startNumber;
 
+  // получаю рандомно сгенерированные шаги
   const listOfMoves = getSteps(listOfAllowedMoves, startNumber)
+  dispatch(setMoves(listOfMoves));
   // console.log("listOfMoves: ", listOfMoves);
 
-  dispatch(setMoves(listOfMoves));
   // правильный ответ = последняя ячейча в массиве шагов
   dispatch(setCorrectAnswer(listOfMoves[9]));
   console.log("правильный ответ: ", listOfMoves[9]);

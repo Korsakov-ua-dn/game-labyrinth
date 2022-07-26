@@ -16,26 +16,24 @@ const PlayingField = () => {
     const showAnswer = useSelector(s => s.game.showAnswer);
     const disable = useSelector(s => s.app.disable);
 
-    // console.log("correct answer: ", correctAnswer);
-
 // вещаем один обработчик для всех ячеек
     const clickCeilHandler = (e) => {
         if (e.target.tagName === 'SPAN') {
 
-        if (e.target.id == correctAnswer) {
-            e.target.classList.add("win");
-            setTimeout(() => {
-                e.target.classList.remove("win");
-            }, 1000)
-            dispatch(startNewGameTC(1000));
-        } else {
-            e.target.classList.add("lose");
-            setTimeout(() => {
-                e.target.classList.remove("lose");
-            }, 1000)
-            dispatch(showCorrectAnswerTC());
-            dispatch(startNewGameTC(2000));
-        }
+            if (e.target.id == correctAnswer) {
+                e.target.classList.add("win");
+                setTimeout(() => {
+                    e.target.classList.remove("win");
+                }, 1000)
+                dispatch(startNewGameTC(1000));
+            } else {
+                e.target.classList.add("lose");
+                setTimeout(() => {
+                    e.target.classList.remove("lose");
+                }, 1000)
+                dispatch(showCorrectAnswerTC());
+                dispatch(startNewGameTC(2000));
+            }
            
         }
     }
@@ -50,16 +48,14 @@ const PlayingField = () => {
     };
 
     return (
-        <>
-            <StyledTable 
-                aspectRatio={aspectRatio} 
-                onClick={clickCeilHandler} 
-                className={`${disable ? 'disable' : ''} table`}>
+        <StyledTable 
+            aspectRatio={aspectRatio} 
+            onClick={clickCeilHandler} 
+            className={`${disable ? 'disable' : ''} table`}>
+        
+            { getCeil() }
             
-               { getCeil() }
-                
-            </StyledTable>
-        </>
+        </StyledTable>
     )
 }
 
