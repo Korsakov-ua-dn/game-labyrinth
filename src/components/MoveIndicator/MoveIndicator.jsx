@@ -7,7 +7,7 @@ import { setDisable } from "../../store/reducers/app-reducer";
 
 const MoveIndicator = () => {
     const dispatch = useDispatch();
-    const disable = useSelector(s => s.app.disable);
+    // const disable = useSelector(s => s.app.disable);
     const startNumber = useSelector(s => s.game.startNumber);
     const listOfMoves = useSelector(s => s.game.listOfMoves);
     const aspectRatio = useSelector(s => s.app.aspectRatio);
@@ -32,7 +32,7 @@ const MoveIndicator = () => {
             currentCeilNum = listOfMoves[i]
             moves.push(<span 
                 data-arrow={`${movement}`} 
-                className={`${disable && i > show ? 'disable' : ''} ${i == show ? 'active' : ''} moves__ceil`} 
+                className={`${ show < i || show === 10 ? 'disable' : ''} ${i === show ? 'active' : ''} moves__ceil`} 
                 key={i}
                 ></span>); // у спанов есть псевдоэлемент after
         }
