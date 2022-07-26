@@ -18,8 +18,6 @@ const Popup = () => {
         }
     }
 
-    console.log("aspectRatio ", aspectRatio);
-
     return (
         <Portal>
             <StyledPopup className='popup'>

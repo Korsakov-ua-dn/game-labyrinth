@@ -1,5 +1,6 @@
 import React, { useEffect, useState }  from "react";
 import styled from 'styled-components';
+import arrow from "../../assets/img/arrow.jpg";
 import arrowRightImage from "../../assets/img/right-min.webp"
 import { variables } from "../../utils/variables";
 import { useDispatch, useSelector } from "react-redux";
@@ -93,7 +94,7 @@ const StyledMoves = styled.div`
     & .moves__ceil::after {
         position: absolute;
         content: '';
-        background-image: url(${arrowRightImage});
+        background-image: url(${arrowRightImage ? arrowRightImage : arrow});
         background-size: 60%;
         background-position: center;
         background-repeat: no-repeat;
