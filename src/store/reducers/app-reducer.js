@@ -1,5 +1,5 @@
 import { getListOfAllowMoves } from "../../utils/getListOfAllowMoves";
-import { getNextStep } from "../../utils/getNextStep";
+import { getSteps } from "../../utils/getSteps";
 import { getRandomInt } from "../../utils/getRandomInt";
 import { setCorrectAnswer, setMoves, setStartNumber } from "./game-reducer";
 
@@ -52,7 +52,7 @@ export const pressStartTC = () => (dispatch, getState) => {
   // генерируем и добавляем в стейт стартвое значение
   const startNumber = getRandomInt(1, Math.pow(aspectRatio, 2));
   dispatch(setStartNumber(startNumber));
-  console.log("startNumber: ", startNumber);
+  // console.log("startNumber: ", startNumber);
 
   // закрываем модалку
   dispatch(setOpenStart(false));
@@ -71,7 +71,7 @@ export const addListOfAllowedMovesTC = () => (dispatch, getState) => {
   // генерируем список допустимых шагов для всех ячеек
   const list = getListOfAllowMoves(aspectRatio);
   dispatch(setListOfAllowedMoves(list));
-  console.log("listOfAllowedMoves: ", list);
+  // console.log("listOfAllowedMoves: ", list);
 
 };
 
@@ -79,20 +79,13 @@ export const addListOfStepsTC = () => (dispatch, getState) => {
   const listOfAllowedMoves = getState().app.listOfAllowedMoves;
   const startNumber = getState().game.startNumber;
 
-  // генерируем список из 10 шагов для текущей игры
-  let temp = [];
-  let ceil = startNumber
-  for (let i = 1; i <= 10; i++) {
-    const nextStep = getNextStep(listOfAllowedMoves[ceil])
-    temp.push(nextStep)
-    ceil = nextStep
-  }
+  const listOfMoves = getSteps(listOfAllowedMoves, startNumber)
+  // console.log("listOfMoves: ", listOfMoves);
 
-  dispatch(setMoves(temp));
+  dispatch(setMoves(listOfMoves));
   // правильный ответ = последняя ячейча в массиве шагов
-  dispatch(setCorrectAnswer(temp[9]));
-  console.log("setOfMoves: ", temp);
-
+  dispatch(setCorrectAnswer(listOfMoves[9]));
+  console.log("правильный ответ: ", listOfMoves[9]);
 };
 
 export const startNewGameTC = (ms) => (dispatch) => {

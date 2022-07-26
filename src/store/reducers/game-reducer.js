@@ -1,7 +1,7 @@
 
 const initialState = {
     startNumber: null,
-    setOfMoves: [],
+    listOfMoves: [],
     correctAnswer: null,
     showAnswer: false,
   };
@@ -25,9 +25,9 @@ export const setStartNumber = (startNumber) => ({
     payload: { startNumber },
   });
 
-export const setMoves = (setOfMoves) => ({
+export const setMoves = (listOfMoves) => ({
     type: "GAME/SET_MOVES",
-    payload: { setOfMoves },
+    payload: { listOfMoves },
   });
   
 export const setCorrectAnswer = (correctAnswer) => ({

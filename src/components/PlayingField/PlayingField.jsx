@@ -16,7 +16,7 @@ const PlayingField = () => {
     const showAnswer = useSelector(s => s.game.showAnswer);
     const disable = useSelector(s => s.app.disable);
 
-    console.log("correct answer: ", correctAnswer);
+    // console.log("correct answer: ", correctAnswer);
 
 // вещаем один обработчик для всех ячеек
     const clickCeilHandler = (e) => {
@@ -93,6 +93,7 @@ const StyledTable = styled.main`
 
         &.start {
             background-image: url(${startImage});
+            // background-image: url(${process.env.REACT_APP_PUBLIC_API_URL}/assets/images/uc-white.png );
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;

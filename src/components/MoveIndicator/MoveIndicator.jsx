@@ -1,6 +1,5 @@
 import React, { useEffect, useState }  from "react";
 import styled from 'styled-components';
-import arrow from "../../assets/img/arrow.jpg";
 import arrowRightImage from "../../assets/img/right-min.webp"
 import { variables } from "../../utils/variables";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,47 +9,43 @@ const MoveIndicator = () => {
     const dispatch = useDispatch();
     const disable = useSelector(s => s.app.disable);
     const startNumber = useSelector(s => s.game.startNumber);
-    const setOfMoves = useSelector(s => s.game.setOfMoves);
+    const listOfMoves = useSelector(s => s.game.listOfMoves);
     const aspectRatio = useSelector(s => s.app.aspectRatio);
 
 // показываем стрелку направления движения каждую секунду
     const [show, setShow] = useState(-2);
-    const timer = () => setShow(show + 1);
     useEffect(() => {
-        if (show == 10) {
+        if (show === 10) {
             dispatch(setDisable(false))
             return;
         }
-        const id = setInterval(timer, 1000)
-        return () => clearInterval(id);
-    }, [show]);
+        setTimeout(() => setShow(show + 1), 1000)
+    }, [show, dispatch]);
 
 // генерируем массив ячеек для отрисовки
     const getMoves = () => {
         let moves = [];
-        let temp = startNumber
+        let currentCeilNum = startNumber
 
         for (let i = 0; i < 10; i++) {
-            const res =  setOfMoves[i] - temp
-            temp = setOfMoves[i]
+            const movement =  listOfMoves[i] - currentCeilNum
+            currentCeilNum = listOfMoves[i]
             moves.push(<span 
-                data-arrow={`${res}`} 
+                data-arrow={`${movement}`} 
                 className={`${disable && i > show ? 'disable' : ''} ${i == show ? 'active' : ''} moves__ceil`} 
                 key={i}
-                ></span>);     
+                ></span>); // у спанов есть псевдоэлемент after
         }
 
         return moves;
     };
 
     return (
-        <>
-            <StyledMoves aspectRatio={aspectRatio} className="moves">
+        <StyledMoves aspectRatio={aspectRatio} className="moves">
+        
+            { getMoves() }
             
-               { getMoves() }
-                
-            </StyledMoves>
-        </>
+        </StyledMoves>
     )
 }
 
@@ -71,7 +66,7 @@ const StyledMoves = styled.div`
         width: 100%;
         background-color: ${variables.backgroundBlueColor};
        
-
+// по умолчанию стрелка - право соответствует ходу в перед (+1), (-1) ход назад, (+ соотношение сторон) - ход вниз, (- соотношение сторон) - ход вверх 
         &[data-arrow="-1"]::after {
             transform: rotate(180deg);
         }
@@ -94,7 +89,7 @@ const StyledMoves = styled.div`
     & .moves__ceil::after {
         position: absolute;
         content: '';
-        background-image: url(${arrowRightImage ? arrowRightImage : arrow});
+        background-image: url(${arrowRightImage});
         background-size: 60%;
         background-position: center;
         background-repeat: no-repeat;

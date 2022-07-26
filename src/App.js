@@ -4,35 +4,17 @@ import PlayingField from './components/PlayingField/PlayingField';
 import MoveIndicator from './components/MoveIndicator/MoveIndicator';
 import Popup from './components/common/StartGame/Popup';
 import { useSelector } from "react-redux";
-import { useLayoutEffect } from 'react';
-import { preloadImages } from './utils/preloadImages';
-import winImage from "./assets/img/win-min.webp";
-
 
 const App = () => {
   const startNumber = useSelector(s => s.game.startNumber);
 
-  // пути картинок для предварительной загрузки
-  const images = [
+  // пути картинок для предварительной импорта (браузер закэширует и другие компоненты их получат моментально из кэша)
+  const imagesPath = [
     './assets/img/lose-min.webp',
     './assets/img/right-min.webp',
     './assets/img/start_img.webp',
     './assets/img/win-min.webp'
   ]
-
-  // useLayoutEffect(() => {
-  //   const images = [
-  //     './assets/img/lose-min.webp',
-  //     './assets/img/right-min.webp',
-  //     './assets/img/start_img.webp',
-  //     './assets/img/win-min.webp'
-  //   ]
-  // //  preloadImages();
-  //   noneImgs = images.map((el) => {
-  //     const imgComponent = require(`${el}`)
-  //     return <IMG img={imgComponent}/>
-  //   })
-  // }, [])
 
   return (
     <StyledApp className="App">
@@ -43,7 +25,8 @@ const App = () => {
         </div>
       }
       <Popup/>
-      {images.map((el) => <NotViewImg img={require(`${el}`)}/> )}
+
+      {imagesPath.map((el, i) => <NotViewImg key={i} imgComponent={require(`${el}`)}/> )}
             
     </StyledApp>
   );
@@ -73,5 +56,6 @@ const StyledApp = styled.div`
 
 const NotViewImg = styled.div`
     position: absolute;
-    background-image: url(${props => props.img});
+    background-image: url(${props => props.imgComponent});
+    opacity: 0;
 `
